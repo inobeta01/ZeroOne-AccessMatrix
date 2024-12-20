@@ -1,7 +1,5 @@
 # **Project Name**  
-> **An advanced full-stack application with Prisma backend and dynamic frontend.**  
-
----
+**An advanced full-stack application with Prisma backend and dynamic frontend.**  
 
 ## **Table of Contents**  
 1. [Introduction](#introduction)  
@@ -13,12 +11,9 @@
 7. [Usage](#usage)  
 8. [Contributors](#contributors)  
 
----
-
 ## **Introduction**  
 This project is designed to provide a **scalable full-stack system** that integrates a **Prisma backend** for efficient database interactions and a modern **frontend framework** for seamless user experience. The system is modular, secure, and optimized for deployment.  
 
----
 
 ## **Features**  
 - Modular backend using Prisma and service-oriented design principles.  
@@ -28,7 +23,6 @@ This project is designed to provide a **scalable full-stack system** that integr
 - Production-ready with Docker for containerized deployments.  
 - Secure configuration management for sensitive environment variables.  
 
----
 
 ## **Tech Stack**  
 ### **Backend**  
@@ -47,8 +41,6 @@ This project is designed to provide a **scalable full-stack system** that integr
 - **Docker**: For containerization of backend and frontend services.  
 - **CI/CD**: GitHub Actions or Jenkins for automated deployment.  
 
----
-
 ## **Architecture**  
 This project follows a **Modular Monolith Architecture**:  
 - **Backend** handles all database-related tasks and provides a structured API for frontend consumption.  
@@ -65,7 +57,6 @@ This project follows a **Modular Monolith Architecture**:
 2. **Dynamic Rendering**: Renders components and pages dynamically based on API responses.  
 3. **State Management**: Uses a state management library to ensure seamless UI updates across the application.  
 
----
 
 ## **Folder Structure**  
 
@@ -107,7 +98,6 @@ Frontend/
 │   ├── utils/              # Helper functions
 ```
 
----
 
 ## **Setup and Installation**  
 
@@ -145,8 +135,6 @@ Frontend/
    npm start
    ```  
 
----
-
 ## **Usage**  
 ### **Frontend**  
 1. Access the application via `http://localhost:3000`.  
@@ -162,8 +150,6 @@ Frontend/
    ```bash
    npx prisma studio
    ```  
-
----
 
 ## **Contributors**  
 - **Aditya Singh**  
