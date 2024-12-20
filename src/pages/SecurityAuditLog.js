@@ -1,5 +1,5 @@
 import React from "react";
-
+import'./SecurityAuditLog.css';
 const SecurityAuditLog = () => {
   const logs = [
     { timestamp: "2023-05-01 14:10:30", user: "bob.williams", action: "Failed Login", status: "Error", severity: "Medium", location: "Berlin, Germany", ip: "10.1.1.1" },

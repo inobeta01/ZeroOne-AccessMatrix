@@ -1,6 +1,6 @@
 import React from "react";
 import { Bar, Pie } from "react-chartjs-2";
-
+import'./SessionMonitor.css';
 
 const SessionMonitor = () => {
   const barData = {

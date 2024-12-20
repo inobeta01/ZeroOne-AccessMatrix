@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
@@ -9,11 +8,12 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Mock authentication with default credentials
+
+    // Default credentials for login
     const defaultUsername = "admin";
     const defaultPassword = "password";
 
+    // Check if entered credentials match the default
     if (credentials.username === defaultUsername && credentials.password === defaultPassword) {
       // Storing user info in localStorage on successful login
       localStorage.setItem("user", JSON.stringify({ username: defaultUsername, role: "Admin" }));
