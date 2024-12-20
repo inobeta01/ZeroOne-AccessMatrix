@@ -1,64 +1,150 @@
-/* Role Management Styles */
+/* General Styling */
 .role-management {
-    margin: 20px 0;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
   
-  .role-management h2 {
-    margin-bottom: 10px;
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
   }
   
-  button.add-role-button {
-    background-color: #28a745;
-    color: white;
+  /* Add Role Section */
+  .add-role-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 20px;
   }
   
-  button.add-role-button:hover {
-    background-color: #218838;
+  .add-role-section input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
   }
   
+  .add-role-button,
+  .save-role-button {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-role-button:hover,
+  .save-role-button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Table Styling */
   table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
   }
   
-  th, td {
+  table th,
+  table td {
     padding: 12px;
     text-align: left;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
   }
   
-  button.edit-btn,
-  button.delete-btn {
-    background-color: #007bff;
+  table th {
+    background-color: #34495e;
     color: white;
-    padding: 5px 10px;
-    margin: 5px;
-    border-radius: 3px;
-    border: none;
+  }
+  
+  table td {
+    background-color: #fff;
+  }
+  
+  /* Action Buttons Styling */
+  button {
+    padding: 6px 12px;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
   }
   
-  button.edit-btn:hover,
-  button.delete-btn:hover {
-    background-color: #0056b3;
+  .edit-btn {
+    background-color: #f39c12;
+    color: white;
+    margin-right: 5px;
+    border: none;
   }
   
-  /* Dark Mode */
-  .role-management.dark-mode table {
-    background-color: #333;
+  .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
   }
   
-  .role-management.dark-mode th,
-  .role-management.dark-mode td {
-    border-color: #444;
+  .edit-btn:hover {
+    background-color: #e67e22;
   }
   
-  .role-management.dark-mode button.add-role-button {
-    background-color: #6c757d;
+  .delete-btn:hover {
+    background-color: #c0392b;
   }
   
-  .role-management.dark-mode button.add-role-button:hover {
-    background-color: #5a6268;
+  /* Permissions Styling */
+  .permission {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .permission.read {
+    background-color: #27ae60;
+    color: white;
+  }
+  
+  .permission.write {
+    background-color: #f39c12;
+    color: white;
+  }
+  
+  .permission.execute {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .add-role-section {
+      flex-direction: column;
+    }
+  
+    .add-role-section input {
+      width: 100%;
+    }
+  
+    table th,
+    table td {
+      font-size: 12px;
+      padding: 8px;
+    }
+  
+    .edit-btn, .delete-btn {
+      font-size: 12px;
+      padding: 5px 10px;
+    }
   }
   
