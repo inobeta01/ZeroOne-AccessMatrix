@@ -1,7 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from "chart.js";
-import './MyChartComponent.css'
-// Register components needed by Chart.js
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import "./MyChartComponent.css";
+
+// Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -12,44 +22,72 @@ ChartJS.register(
   Legend
 );
 
-const MyChartComponent = ({ chartData }) => {
+const MyChartComponent = ({ chartData, chartType = "pie", title = "My Chart" }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    // Ensure that the previous chart is destroyed before rendering a new one
     if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext('2d');
+      const ctx = canvasRef.current.getContext("2d");
 
-      // Destroy any existing chart to prevent "Canvas is already in use" error
+      // Destroy any existing chart to prevent conflicts
       if (window.myChart) {
         window.myChart.destroy();
       }
 
+      // Validate chartData
+      console.log("Chart Data:", chartData);
+
       // Create a new chart
       window.myChart = new ChartJS(ctx, {
-        type: 'pie', // or 'bar', 'line', etc.
+        type: chartType,
         data: chartData,
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
             title: {
               display: true,
-              text: "My Chart",
+              text: title,
+              font: {
+                size: 18,
+                family: "'Roboto', sans-serif",
+              },
+            },
+            tooltip: {
+              backgroundColor: "#ffffff",
+              borderColor: "#dddddd",
+              borderWidth: 1,
+              titleColor: "#000000",
+              bodyColor: "#333333",
+            },
+            legend: {
+              position: "top",
+              labels: {
+                color: "#333333",
+                font: {
+                  size: 14,
+                  family: "'Roboto', sans-serif",
+                },
+              },
             },
           },
         },
       });
     }
 
-    // Cleanup function to destroy the chart when the component unmounts
+    // Cleanup function
     return () => {
       if (window.myChart) {
         window.myChart.destroy();
       }
     };
-  }, [chartData]); // Run this effect whenever chartData changes
+  }, [chartData, chartType, title]);
 
-  return <canvas ref={canvasRef}></canvas>;
+  return (
+    <div className="chart-container">
+      <canvas ref={canvasRef}></canvas>
+    </div>
+  );
 };
 
 export default MyChartComponent;

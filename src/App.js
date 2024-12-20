@@ -31,17 +31,9 @@ const App = () => {
     }
   }, [isDarkMode]);
 
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-  };
-
   return (
     <Router>
-      <div className="App">
-        <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-          {isDarkMode ? "Light Mode" : "Dark Mode"}
-        </button>
+      <div className={`App ${isDarkMode ? "dark" : "light"}`}>
         <Routes>
           {/* Login Route */}
           <Route path="/login" element={<LoginPage />} />
@@ -53,8 +45,47 @@ const App = () => {
               <ProtectedRoute>
                 <DashboardPage />
                 {/* Include the chart component here as part of the dashboard */}
-                <MyChartComponent chartData={chartData} />
+                <MyChartComponent
+                  chartData={{
+                    labels: ["Red", "Blue", "Yellow", "Green"],
+                    datasets: [
+                      {
+                        label: "Votes",
+                        data: [12, 19, 3, 5],
+                        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
+                      },
+                    ],
+                  }}
+                  chartType="bar"
+                  title="Dashboard Chart"
+                />
               </ProtectedRoute>
+            }
+          />
+
+          {/* Standalone Chart Demo */}
+          <Route
+            path="/chart-demo"
+            element={
+              <div>
+                <h1 style={{ textAlign: "center", fontFamily: "'Roboto', sans-serif" }}>
+                  My Chart Demo
+                </h1>
+                <MyChartComponent
+                  chartData={{
+                    labels: ["Red", "Blue", "Yellow", "Green"],
+                    datasets: [
+                      {
+                        label: "Votes",
+                        data: [12, 19, 3, 5],
+                        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
+                      },
+                    ],
+                  }}
+                  chartType="pie"
+                  title="Sample Pie Chart"
+                />
+              </div>
             }
           />
 
