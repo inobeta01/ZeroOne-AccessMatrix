@@ -20,6 +20,13 @@ const DashboardPage = () => {
     }
   }, [navigate]);
 
+  const handleLogout = () => {
+    // Remove user data from localStorage
+    localStorage.removeItem("user");
+    // Redirect to login page
+    navigate("/login");
+  };
+
   if (!isAuthenticated) {
     return null; // Don't render the dashboard content if the user is not authenticated
   }
@@ -28,7 +35,12 @@ const DashboardPage = () => {
     <div className="dashboard-container">
       <header className="dashboard-header">
         <h1>SecureOps</h1>
-        <div className="security-status">Security Status: <span>Low</span></div>
+        <div className="security-status">
+          Security Status: <span>Low</span>
+        </div>
+        <button className="logout-btn" onClick={handleLogout}>
+          Log Out
+        </button>
       </header>
       <main>
         <section className="top-section">
