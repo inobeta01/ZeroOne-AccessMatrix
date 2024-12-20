@@ -1,4 +1,4 @@
-// src/pages/LoginPage.js
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
@@ -9,12 +9,17 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Mock authentication
-    if (credentials.username === "admin" && credentials.password === "password") {
-      localStorage.setItem("user", JSON.stringify({ username: "admin", role: "Admin" }));
+    
+    // Mock authentication with default credentials
+    const defaultUsername = "admin";
+    const defaultPassword = "password";
+
+    if (credentials.username === defaultUsername && credentials.password === defaultPassword) {
+      // Storing user info in localStorage on successful login
+      localStorage.setItem("user", JSON.stringify({ username: defaultUsername, role: "Admin" }));
       navigate("/dashboard"); // Redirect to dashboard
     } else {
-      alert("Invalid credentials!");
+      alert("Invalid credentials!"); // Show error for invalid login
     }
   };
 
