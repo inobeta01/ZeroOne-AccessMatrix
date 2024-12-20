@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from "chart.js";
-
+import './MyChartComponent.css'
 // Register components needed by Chart.js
 ChartJS.register(
   CategoryScale,

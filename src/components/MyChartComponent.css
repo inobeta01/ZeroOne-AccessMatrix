@@ -1,0 +1,43 @@
+/* MyChartComponent.css */
+
+/* Ensure the canvas is responsive and takes up the available space */
+canvas {
+    display: block; /* Remove any inline display issues */
+    max-width: 100%; /* Ensure the canvas doesn't overflow */
+    height: auto; /* Keep aspect ratio intact */
+    margin: 0 auto; /* Center the chart */
+  }
+  
+  /* Chart container */
+  .chart-container {
+    width: 100%;
+    max-width: 800px; /* Limit max width of the chart */
+    margin: 20px auto; /* Add space around the chart */
+    padding: 20px; /* Padding around the chart */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #ffffff; /* Background color for the chart container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  /* Title styling */
+  .chart-container h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; /* Dark text color */
+  }
+  
+  /* Additional responsive design */
+  @media (max-width: 768px) {
+    .chart-container {
+      width: 90%; /* Make the container a bit smaller on mobile */
+      padding: 10px; /* Reduce padding on mobile */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .chart-container h2 {
+      font-size: 1.2rem; /* Make the title font smaller on very small screens */
+    }
+  }
+  

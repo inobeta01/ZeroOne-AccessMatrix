@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/login";
 import DashboardPage from "./components/Dashboard";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import MyChartComponent from "./components/MyChartComponent";  // Import the chart component
+import MyChartComponent from "./components/MyChartComponent";  
 
 const App = () => {
   const [chartData, setChartData] = useState({
