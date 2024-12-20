@@ -4,138 +4,163 @@ import './RoleManagement.css';
 const RoleManagement = () => {
   // Initial roles data with description, users, and permissions
   const [roles, setRoles] = useState([
-    { role: "Admin", description: "Full system access", users: 5, permissions: ["Read", "Write", "Execute"] },
-    { role: "Security Analyst", description: "Monitor and analyze security events", users: 12, permissions: ["Read", "Write"] },
-    { role: "Incident Responder", description: "Respond to security incidents", users: 8, permissions: ["Read"] },
+    {
+      role: "Admin",
+      description: "Full system access",
+      permissions: ["Read", "Write", "Execute"],
+      members: [],
+    },
+    {
+      role: "Security Analyst",
+      description: "Monitor and analyze security events",
+      permissions: ["Read", "Write"],
+      members: [],
+    },
+    {
+      role: "Incident Responder",
+      description: "Respond to security incidents",
+      permissions: ["Read"],
+      members: [],
+    },
   ]);
 
-  // State to handle form inputs for adding/updating roles
-  const [newRole, setNewRole] = useState({
-    role: "",
-    description: "",
-    users: "",
-    permissions: ["Read"],
-  });
+  // States for managing modals and member inputs
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [newMember, setNewMember] = useState({ username: "", password: "" });
+  const [editingMemberId, setEditingMemberId] = useState(null);
+  const [viewMembers, setViewMembers] = useState(null); // Track which role's members are being viewed
 
-  // State to track which role is being edited
-  const [editingRoleId, setEditingRoleId] = useState(null);
-
-  // Handle input changes for role details
-  const handleInputChange = (e) => {
+  // Handle member input changes
+  const handleMemberInputChange = (e) => {
     const { name, value } = e.target;
-    setNewRole((prevRole) => ({
-      ...prevRole,
-      [name]: name === "permissions" ? value.split(",") : value,
+    setNewMember((prevMember) => ({
+      ...prevMember,
+      [name]: value,
     }));
   };
 
-  // Function to handle adding a new role
-  const addNewRole = () => {
-    if (newRole.role.trim() && newRole.description.trim()) {
-      const newRoleData = {
-        ...newRole,
-        users: parseInt(newRole.users) || 0, // Default to 0 if no users entered
-      };
-      setRoles([...roles, newRoleData]);
-      setNewRole({ role: "", description: "", users: "", permissions: ["Read"] }); // Clear inputs
+  // Function to handle adding a new member
+  const addMember = () => {
+    if (
+      newMember.username.trim() &&
+      newMember.password.trim() &&
+      selectedRole !== null
+    ) {
+      const updatedRoles = [...roles];
+      updatedRoles[selectedRole].members.push({ ...newMember });
+      setRoles(updatedRoles);
+      setNewMember({ username: "", password: "" }); // Clear inputs
     }
   };
 
-  // Function to handle deleting a role
-  const deleteRole = (roleIndex) => {
-    const updatedRoles = roles.filter((_, index) => index !== roleIndex);
-    setRoles(updatedRoles);
-  };
-
-  // Function to handle editing a role
-  const editRole = (roleIndex) => {
-    setEditingRoleId(roleIndex);
-    setNewRole(roles[roleIndex]);
-  };
-
-  // Function to handle saving the edited role
-  const saveEditRole = () => {
+  // Function to handle editing a member
+  const saveEditMember = () => {
     const updatedRoles = [...roles];
-    updatedRoles[editingRoleId] = { ...newRole, users: parseInt(newRole.users) || 0 };
+    updatedRoles[selectedRole].members[editingMemberId] = { ...newMember };
     setRoles(updatedRoles);
-    setEditingRoleId(null); // Stop editing
-    setNewRole({ role: "", description: "", users: "", permissions: ["Read"] }); // Clear inputs
+    setEditingMemberId(null); // Stop editing
+    setNewMember({ username: "", password: "" }); // Clear inputs
+  };
+
+  // Function to handle deleting a member
+  const deleteMember = (memberIndex) => {
+    const updatedRoles = [...roles];
+    updatedRoles[selectedRole].members.splice(memberIndex, 1);
+    setRoles(updatedRoles);
   };
 
   return (
     <div className="role-management">
       <h2>Role Management</h2>
 
-      {/* Form for adding or editing roles */}
-      <div className="add-role-section">
-        <input
-          type="text"
-          name="role"
-          value={newRole.role}
-          onChange={handleInputChange}
-          placeholder="Enter new role name"
-        />
-        <input
-          type="text"
-          name="description"
-          value={newRole.description}
-          onChange={handleInputChange}
-          placeholder="Enter role description"
-        />
-        <input
-          type="number"
-          name="users"
-          value={newRole.users}
-          onChange={handleInputChange}
-          placeholder="Enter number of users"
-        />
-        <input
-          type="text"
-          name="permissions"
-          value={newRole.permissions.join(",")}
-          onChange={handleInputChange}
-          placeholder="Enter permissions (comma-separated)"
-        />
+      {/* Add Member Section */}
+      <div className="add-member-section">
+        <select
+          onChange={(e) => setSelectedRole(e.target.value)}
+          value={selectedRole || ""}
+        >
+          <option value="" disabled>
+            Select a Role
+          </option>
+          {roles.map((role, index) => (
+            <option key={index} value={index}>
+              {role.role}
+            </option>
+          ))}
+        </select>
 
-        {editingRoleId !== null ? (
-          <button className="save-role-button" onClick={saveEditRole}>Save Changes</button>
-        ) : (
-          <button className="add-role-button" onClick={addNewRole}>+ Add Role</button>
+        {selectedRole !== null && (
+          <>
+            <input
+              type="text"
+              name="username"
+              value={newMember.username}
+              onChange={handleMemberInputChange}
+              placeholder="Enter username"
+            />
+            <input
+              type="password"
+              name="password"
+              value={newMember.password}
+              onChange={handleMemberInputChange}
+              placeholder="Enter password"
+            />
+            {editingMemberId !== null ? (
+              <button onClick={saveEditMember}>Save Changes</button>
+            ) : (
+              <button onClick={addMember}>+ Add Member</button>
+            )}
+          </>
         )}
       </div>
 
-      {/* Roles table */}
-      <table>
-        <thead>
-          <tr>
-            <th>Role</th>
-            <th>Description</th>
-            <th>Users</th>
-            <th>Permissions</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {roles.map((role, index) => (
-            <tr key={index}>
-              <td>{role.role}</td>
-              <td>{role.description}</td>
-              <td>{role.users}</td>
-              <td>
-                {role.permissions.map((perm, i) => (
-                  <span key={i} className={`permission ${perm.toLowerCase()}`}>
-                    {perm}
-                  </span>
+      {/* Roles and Members Table */}
+      {roles.map((role, roleIndex) => (
+        <div key={roleIndex} className="role-section">
+          <h3>{role.role}</h3>
+          <p>{role.description}</p>
+          <p>Members: {role.members.length}</p>
+          <button
+            onClick={() =>
+              setViewMembers(viewMembers === roleIndex ? null : roleIndex)
+            }
+          >
+            {viewMembers === roleIndex ? "Hide Members" : "View Members"}
+          </button>
+
+          {viewMembers === roleIndex && (
+            <table>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {role.members.map((member, memberIndex) => (
+                  <tr key={memberIndex}>
+                    <td>{member.username}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          setSelectedRole(roleIndex);
+                          setEditingMemberId(memberIndex);
+                          setNewMember(member);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button onClick={() => deleteMember(memberIndex)}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
                 ))}
-              </td>
-              <td>
-                <button className="edit-btn" onClick={() => editRole(index)}>Edit</button>
-                <button className="delete-btn" onClick={() => deleteRole(index)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </tbody>
+            </table>
+          )}
+        </div>
+      ))}
     </div>
   );
 };
